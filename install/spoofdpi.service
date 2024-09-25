@@ -1,0 +1,11 @@
+[Unit]
+Description=OmegaSkoofDPI service
+After=network.target
+
+[Service]
+ExecStart=/home/drama/.spoofdpi/bin/spoofdpi
+Restart=always
+User=drama
+
+[Install]
+WantedBy=multi-user.target

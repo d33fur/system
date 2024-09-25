@@ -1,13 +1,31 @@
 SHELL := /bin/bash
 
-.PHONY: wol
-wol:
-	@wakeonlan -i 46.146.229.74 -p 9 fc:aa:14:29:f3:b8
+include .env
+
+.PHONY: up
+up:
+	@wakeonlan -i ${IP} -p ${PORT} ${MAC}
 
 .PHONY: ssh
 ssh:
-	@ssh drama@46.146.229.74
+	@ssh drama@${IP}
 
-.PHONY: shutdown
-shutdown:
-	@ssh drama@46.146.229.74 "echo 'Gjkbyf888' | sudo -S shutdown -h now"
+.PHONY: down
+down:
+	@ssh drama@${IP} "echo ${PASSWORD} | sudo -S shutdown -h now"
+
+.PHONY: sleep
+sleep:
+	@ssh drama@${IP} "echo ${PASSWORD} | sudo -S systemctl suspend"
+
+.PHONY: reboot
+reboot:
+	@ssh drama@${IP} "echo ${PASSWORD} | sudo -S reboot"
+
+.PHONY: ping-port
+ping-port:
+	@nc -zv ${IP} ${PORT}
+
+.PHONY: ping
+ping:
+	@ping ${IP}
