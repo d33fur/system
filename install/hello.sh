@@ -230,6 +230,13 @@ sudo snap install libreoffice
 sudo snap install ktorrent
 
 # 
+# startup disk creator
+# 
+sudo apt update
+sudo apt upgrade -y
+sudo apt install -y usb-creator-kde
+
+# 
 # nekoray
 # link for guide
 # https://telegra.ph/NekoRay-v-Linyx-07-11
