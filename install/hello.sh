@@ -18,9 +18,6 @@ sudo apt install -y \
     doxygen \
     build-essential \
     gcc \
-    apt-transport-https \
-    ca-certificates \
-    software-properties-common \
     pkg-config \
     libssl-dev \
     tmux \
@@ -32,14 +29,13 @@ sudo apt install -y \
     nodejs \
     zsh
 
+snap refresh
+
 git config --global user.email "d33fur@gmail.com"
 git config --global user.name "d33fur"
 
 chsh -s $(which zsh)
 
-# 
-# last base
-# 
 pipx ensurepath
 pipx install cmake requests streamlit conan
 
@@ -51,7 +47,7 @@ echo 'eval "$(register-python-argcomplete pipx)"' >> ~/.zshrc
 # 
 # oh-my-zsh
 # 
-y | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # 
 # nerd font
@@ -83,7 +79,7 @@ fc-cache -fv
 # 
 # starship
 # 
-y | curl -sS https://starship.rs/install.sh | sh
+yes | curl -sS https://starship.rs/install.sh | sh
 echo 'eval "$(starship init zsh)"' >> ~/.zshrc
 mkdir -p ~/.config
 starship preset plain-text-symbols -o ~/.config/starship.toml
@@ -91,7 +87,7 @@ starship preset plain-text-symbols -o ~/.config/starship.toml
 # 
 # rust
 # 
-1 | curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+yes | curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 . "$HOME/.cargo/env"
 rustc --version
 
@@ -100,6 +96,13 @@ cargo install cargo-edit
 # 
 # docker and docker-compose
 # 
+sudo apt update
+sudo apt install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
+
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
     sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
@@ -125,6 +128,10 @@ docker-compose --version
 # 
 # yandex browser
 # 
+sudo apt install -y \
+    curl \
+    apt-transport-https
+
 curl -fSsL https://repo.yandex.ru/yandex-browser/YANDEX-BROWSER-KEY.GPG | \
     sudo gpg --dearmor | \
     sudo tee /usr/share/keyrings/yandex.gpg
@@ -143,7 +150,16 @@ sudo apt update
 # 
 sudo apt update
 sudo apt upgrade -y
-sudo apt install flameshot -y
+sudo apt install -y \
+    libqt5dbus5 \
+    libqt5network5 \
+    libqt5core5a \
+    libqt5widgets5 \
+    libqt5gui5 \
+    openssl \
+    ca-certificates
+
+sudo apt install -y flameshot
 
 # 
 # code
@@ -169,7 +185,6 @@ sudo snap install vlc
 # obs
 # 
 sudo snap install obs-studio
-
 sudo snap connect obs-studio:alsa
 sudo snap connect obs-studio:audio-record
 sudo snap connect obs-studio:avahi-control
