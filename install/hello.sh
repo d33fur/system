@@ -1,11 +1,14 @@
 #!/bin/bash
 
 # 
+# Linux Mint 22 Cinnamon
+# 
+# 
 # base
 # 
 exec > >(tee -a logs.txt) 2> >(tee -a errors.txt >&2)
 
-sudo mv /etc/apt/preferences.d/nosnap.pref ~/Documents/nosnap.backup
+sudo rm /etc/apt/preferences.d/nosnap.pref
 sudo apt update
 sudo apt upgrade -y
 sudo apt install -y \
@@ -32,8 +35,11 @@ sudo apt install -y \
     zsh \
     snapd \
     libsecret-1-0 \
-    libsecret-1-dev
+    libsecret-1-dev \
+    gpg
 
+sudo systemctl enable --now snapd.service
+sudo snap install core
 snap refresh
 
 cd /usr/share/doc/git/contrib/credential/libsecret
@@ -46,6 +52,8 @@ git config --global credential.helper /usr/share/doc/git/contrib/credential/libs
 cd cd ~/system/install/
 
 sudo chsh -s /usr/bin/zsh $USER
+
+exec zsh
 
 pipx ensurepath
 pipx install cmake requests streamlit conan
@@ -320,8 +328,6 @@ mkdir -p ${ZDOTDIR:-~}/.zsh_functions
 echo 'fpath+=${ZDOTDIR:-~}/.zsh_functions' >> ${ZDOTDIR:-~}/.zshrc
 cp extra/completions/_alacritty ${ZDOTDIR:-~}/.zsh_functions/_alacritty
 cd ..
-
-exec zsh
 
 # my files
 # murglar
