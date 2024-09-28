@@ -5,11 +5,11 @@
 # 
 exec > >(tee -a logs.txt) 2> >(tee -a errors.txt >&2)
 
+sudo mv /etc/apt/preferences.d/nosnap.pref ~/Documents/nosnap.backup
 sudo apt update
 sudo apt upgrade -y
 sudo apt install -y \
     git \
-    git-credential-manager \
     wget \
     curl \
     vim \
@@ -24,21 +24,28 @@ sudo apt install -y \
     pkg-config \
     libssl-dev \
     tmux \
-    pkg-config \
     libfreetype6-dev \
     libfontconfig1-dev \
     libxcb-xfixes0-dev \
     libxkbcommon-dev \
     nodejs \
-    zsh
+    zsh \
+    snapd \
+    libsecret-1-0 \
+    libsecret-1-dev
 
 snap refresh
 
+cd /usr/share/doc/git/contrib/credential/libsecret
+sudo make
 git config --global user.email "d33fur@gmail.com"
 git config --global user.name "d33fur"
 git config --global credential.helper manager-core
+git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
 
-chsh -s $(which zsh)
+cd cd ~/system/install/
+
+sudo chsh -s /usr/bin/zsh $USER
 
 pipx ensurepath
 pipx install cmake requests streamlit conan
@@ -105,7 +112,9 @@ sudo apt install -y \
     apt-transport-https \
     ca-certificates \
     curl \
-    software-properties-common
+    software-properties-common \
+    lsb-release \
+    gnupg
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
     sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
