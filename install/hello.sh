@@ -203,7 +203,7 @@ sudo snap install obsidian --classic
 # 
 # telegram
 # 
-sudo apt install -y telegram-desktop
+sudo snap install telegram-desktop
 
 # 
 # vlc
@@ -328,7 +328,55 @@ echo 'fpath+=${ZDOTDIR:-~}/.zsh_functions' >> ${ZDOTDIR:-~}/.zshrc
 cp extra/completions/_alacritty ${ZDOTDIR:-~}/.zsh_functions/_alacritty
 cd ..
 
-reboot
+# check installed programs
+echo "Installed programs:"
+echo "git: $(git --version)"
+echo "wget: $(wget --version)"
+echo "curl: $(curl --version)"
+echo "vim: $(vim --version)"
+echo "tmux: $(tmux -V)"
+echo "python3: $(python3 --version)"
+echo "pip: $(pip --version)"
+echo "pipx: $(pipx --version)"
+echo "make: $(make --version)"
+echo "doxygen: $(doxygen --version)"
+echo "gcc: $(gcc --version)"
+echo "pkg-config: $(pkg-config --version)"
+echo "nodejs: $(node --version)"
+echo "zsh: $(zsh --version)"
+echo "snapd: $(snap --version)"
+echo "docker: $(docker --version)"
+echo "docker-compose: $(docker-compose --version)"
+echo "yandex-browser: $(yandex-browser --version)"
+echo "flameshot: $(flameshot --version)"
+echo "code: $(code --version)"
+echo "obsidian: $(obsidian --version)"
+echo "telegram-desktop: $(telegram-desktop --version)"
+echo "vlc: $(vlc --version)"
+echo "obs-studio: $(obs --version)"
+echo "discord: $(discord --version)"
+echo "teams-for-linux: $(teams --version)"
+echo "postman: $(postman --version)"
+echo "stellarium: $(stellarium --version)"
+echo "bitwarden: $(bitwarden --version)"
+echo "libreoffice: $(libreoffice --version)"
+echo "ktorrent: $(ktorrent --version)"
+echo "usb-creator-kde: $(usb-creator-kde --version)"
+echo "nekoray: $(nekoray --version)"
+echo "spoofdpi: $(spoofdpi --version)"
+echo "alacritty: $(alacritty --version)"
+
+if [[ "$1" == "--reboot" ]]; then
+    echo "Rebooting the system..."
+    sudo reboot
+else
+    read -p "Do you want to reboot the system? (y/n): " reboot_choice
+    if [[ "$reboot_choice" == "y" ]]; then
+        sudo reboot
+    else
+        echo "Reboot cancelled."
+    fi
+fi
 
 # my files
 # murglar
