@@ -3,10 +3,13 @@
 # 
 # base
 # 
+exec > >(tee -a logs.txt) 2> >(tee -a errors.txt >&2)
+
 sudo apt update
 sudo apt upgrade -y
 sudo apt install -y \
     git \
+    git-credential-manager \
     wget \
     curl \
     vim \
@@ -33,6 +36,7 @@ snap refresh
 
 git config --global user.email "d33fur@gmail.com"
 git config --global user.name "d33fur"
+git config --global credential.helper manager-core
 
 chsh -s $(which zsh)
 
@@ -79,7 +83,7 @@ fc-cache -fv
 # 
 # starship
 # 
-yes | curl -sS https://starship.rs/install.sh | sh
+curl -sS https://starship.rs/install.sh | sh -s -- -y
 echo 'eval "$(starship init zsh)"' >> ~/.zshrc
 mkdir -p ~/.config
 starship preset plain-text-symbols -o ~/.config/starship.toml
@@ -87,7 +91,7 @@ starship preset plain-text-symbols -o ~/.config/starship.toml
 # 
 # rust
 # 
-yes | curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 . "$HOME/.cargo/env"
 rustc --version
 
@@ -130,7 +134,14 @@ docker-compose --version
 # 
 sudo apt install -y \
     curl \
-    apt-transport-https
+    apt-transport-https \
+    libgstreamer1.0-0 \
+    gstreamer1.0-plugins-base \
+    gstreamer1.0-plugins-good \
+    gstreamer1.0-plugins-bad \
+    gstreamer1.0-plugins-bad-faad \
+    gstreamer1.0-libav
+
 
 curl -fSsL https://repo.yandex.ru/yandex-browser/YANDEX-BROWSER-KEY.GPG | \
     sudo gpg --dearmor | \
