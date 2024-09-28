@@ -16,7 +16,6 @@ sudo apt install -y \
     wget \
     curl \
     vim \
-    tmux \
     python3 \
     python3-pip \
     pipx \
@@ -56,8 +55,6 @@ chsh -s $(which zsh)
 pipx ensurepath
 pipx install \
     cmake \
-    requests \
-    streamlit \
     conan
 
 pipx completions
@@ -327,43 +324,6 @@ mkdir -p ${ZDOTDIR:-~}/.zsh_functions
 echo 'fpath+=${ZDOTDIR:-~}/.zsh_functions' >> ${ZDOTDIR:-~}/.zshrc
 cp extra/completions/_alacritty ${ZDOTDIR:-~}/.zsh_functions/_alacritty
 cd ..
-
-# check installed programs
-echo "Installed programs:"
-echo "git: \n$(git --version)"
-echo "vim: \n$(vim --version)"
-echo "tmux: \n$(tmux -V)"
-echo "python3: \n$(python3 --version)"
-echo "pip: \n$(pip --version)"
-echo "pipx: \n$(pipx --version)"
-echo "make: \n$(make --version)"
-echo "cmake: \n$(cmake --version)"
-echo "conan: \n$(conan --version)"
-echo "gcc: \n$(gcc --version)"
-echo "nodejs: \n$(node --version)"
-echo "zsh: \n$(zsh --version)"
-echo "starship: \n$(starship --version)"
-echo "snapd: \n(snap --version)"
-echo "docker: \n$(docker --version)"
-echo "docker-compose: \n$(docker-compose --version)"
-echo "yandex-browser: \n$(yandex-browser --version)"
-echo "flameshot: \n$(flameshot --version)"
-echo "code: \n$(code --version)"
-# echo "obsidian: \n$(obsidian --version)"
-# echo "telegram-desktop: \n$(telegram-desktop --version)"
-echo "vlc: \n$(vlc --version)"
-echo "obs-studio: \n$(obs --version)"
-# echo "discord: \n$(discord --version)"
-echo "teams-for-linux: \n$(teams --version)"
-# echo "postman: \n$(postman --version)"
-# echo "stellarium: \n$(stellarium --version)"
-# echo "bitwarden: \n$(bitwarden --version)"
-echo "libreoffice: \n$(libreoffice --version)"
-echo "ktorrent: \n$(ktorrent --version)"
-echo "usb-creator-kde: \n$(usb-creator-kde --version)"
-# echo "nekoray: \n$(nekoray --version)"
-# echo "spoofdpi: \n$(spoofdpi --version)"
-echo "alacritty: \n$(alacritty --version)"
 
 if [[ "$1" == "--reboot" ]]; then
     echo "Rebooting the system..."
