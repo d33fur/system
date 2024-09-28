@@ -49,14 +49,16 @@ git config --global user.name "d33fur"
 git config --global credential.helper manager-core
 git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
 
-cd cd ~/system/install/
+cd ~/system/install/
 
-sudo chsh -s /usr/bin/zsh $USER
-
-exec zsh
+chsh -s $(which zsh)
 
 pipx ensurepath
-pipx install cmake requests streamlit conan
+pipx install \
+    cmake \
+    requests \
+    streamlit \
+    conan
 
 pipx completions
 echo 'autoload -U bashcompinit' >> ~/.zshrc
@@ -127,7 +129,7 @@ sudo apt install -y \
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
     sudo gpg --dearmor -o /usr/share/keyrings/docker.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker.gpg] \
-    https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | \
+    https://download.docker.com/linux/ubuntu focal stable" | \
     sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 sudo apt update
@@ -177,7 +179,6 @@ sudo apt update
 # flameshot
 # 
 sudo apt update
-sudo apt upgrade -y
 sudo apt install -y \
     libqt5dbus5 \
     libqt5network5 \
@@ -202,12 +203,12 @@ sudo snap install obsidian --classic
 # 
 # telegram
 # 
-sudo snap install telegram-desktop
+sudo apt install -y telegram-desktop
 
 # 
 # vlc
 # 
-sudo snap install vlc
+sudo apt install -y vlc
 
 # 
 # obs
@@ -250,18 +251,16 @@ sudo snap connect bitwarden:password-manager-service
 # 
 # libreoffice
 # 
-sudo snap install libreoffice
+sudo apt install -y libreoffice
 
 # 
 # ktorrent
 # 
-sudo snap install ktorrent
+sudo apt install -y ktorrent
 
 # 
 # startup disk creator
 # 
-sudo apt update
-sudo apt upgrade -y
 sudo apt install -y usb-creator-kde
 
 # 
@@ -328,6 +327,8 @@ mkdir -p ${ZDOTDIR:-~}/.zsh_functions
 echo 'fpath+=${ZDOTDIR:-~}/.zsh_functions' >> ${ZDOTDIR:-~}/.zshrc
 cp extra/completions/_alacritty ${ZDOTDIR:-~}/.zsh_functions/_alacritty
 cd ..
+
+reboot
 
 # my files
 # murglar
