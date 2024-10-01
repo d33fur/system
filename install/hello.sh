@@ -151,6 +151,20 @@ sudo make install
 cd ~/system/install/
 
 # 
+# thefuck
+# 
+# thefuck  not working
+# due to using deprecated distutils in python3-setuptools
+# 
+# 
+# sudo apt update
+# sudo apt install -y \
+#     python3-dev \
+#     python3-pip \
+#     python3-setuptools
+# python3 -m pipx install thefuck
+
+# 
 # rust
 # 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
