@@ -174,6 +174,15 @@ rustc --version
 cargo install cargo-edit
 
 # 
+# yazi
+# 
+sudo apt update
+sudo apt install -y \
+    make \
+    gcc
+cargo install --locked yazi-fm yazi-cli
+
+# 
 # docker and docker-compose
 # 
 sudo apt update
