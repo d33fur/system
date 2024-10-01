@@ -6,6 +6,16 @@
 # 
 # base
 # 
+# for bat and thefuck and zoxide and mb eza
+# https://www.youtube.com/watch?v=mmqDYw9C30I
+# 
+# добавить yazi
+# https://yazi-rs.github.io/docs/installation/
+# 
+# for tmux
+# https://www.youtube.com/watch?v=DzNmUNvnB04
+# https://www.youtube.com/results?search_query=tmux+config
+# 
 exec > >(tee -a logs.txt) 2> >(tee -a errors.txt >&2)
 
 sudo rm /etc/apt/preferences.d/nosnap.pref
@@ -32,10 +42,19 @@ sudo apt install -y \
     libxkbcommon-dev \
     nodejs \
     zsh \
+    bat \
     snapd \
     libsecret-1-0 \
     libsecret-1-dev \
-    gpg
+    gpg \
+    software-properties-common
+
+mkdir -p ~/.local/bin
+ln -s /usr/bin/batcat ~/.local/bin/bat
+
+sudo add-apt-repository ppa:dotnet/backports -y
+sudo apt update
+sudo apt install -y dotnet-sdk-8.0
 
 sudo systemctl enable --now snapd.service
 sudo snap install core
@@ -97,10 +116,39 @@ fc-cache -fv
 # 
 # starship
 # 
+# мб изменить на вот это
+# https://www.youtube.com/watch?v=ud7YxC33Z3w
+# https://www.youtube.com/watch?v=9U8LCjuQzdc
+# 
 curl -sS https://starship.rs/install.sh | sh -s -- -y
 echo 'eval "$(starship init zsh)"' >> ~/.zshrc
 mkdir -p ~/.config
 starship preset plain-text-symbols -o ~/.config/starship.toml
+
+# 
+# fastfetch
+# 
+sudo add-apt-repository ppa:zhangsongcui3371/fastfetch -y
+sudo apt update
+sudo apt install -y fastfetch
+
+# 
+# btop
+# 
+sudo apt install -y \
+    coreutils \
+    sed \
+    git \
+    build-essential \
+    gcc-11 \
+    g++-11 \
+    lowdown
+
+git clone https://github.com/aristocratos/btop.git
+cd btop
+make ADDFLAGS=-march=native
+sudo make install
+cd ~/system/install/
 
 # 
 # rust
